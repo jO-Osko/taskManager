@@ -3,6 +3,7 @@ import os
 import jinja2
 import webapp2
 
+from models import Task
 
 template_dir = os.path.join(os.path.dirname(__file__), "templates")
 jinja_env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_dir), autoescape=False)
@@ -31,6 +32,23 @@ class IndexHandler(BaseHandler):
     def get(self):
         return self.render_template("index.html")
 
+
+class DodajTaskHandler(BaseHandler):
+
+    def get(self):
+        return self.render_template("dodaj.html")
+
+    def post(self):
+        naslov = self.request.get("input-naslov")
+        besedilo = self.request.get("input-besedilo")
+        pomembnost = int(self.request.get("input-pomembnost"))
+
+        task = Task(naslov=naslov, besedilo=besedilo, pomembnost=pomembnost)
+
+        task.put()
+        return self.redirect_to("index")
+
 app = webapp2.WSGIApplication([
-    webapp2.Route("/", IndexHandler),
+    webapp2.Route("/", IndexHandler, name="index"),
+    webapp2.Route("/dodaj", DodajTaskHandler),
 ], debug=True)
