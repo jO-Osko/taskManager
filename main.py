@@ -61,9 +61,27 @@ class PosamezenTaskHandler(BaseHandler):
         return self.render_template("posamezen_task.html", params=params)
 
 
+class UrediTaskHandler(BaseHandler):
+    def get(self, task_id):
+        task = Task.get_by_id(int(task_id))
+        params = {"task": task}
+        return self.render_template("uredi_task.html", params=params)
+
+    def post(self, task_id):
+        task = Task.get_by_id(int(task_id))
+
+        task.naslov = self.request.get("input-naslov")
+        task.besedilo = self.request.get("input-besedilo")
+        task.pomembnost = int(self.request.get("input-pomembnost"))
+        task.dokoncano = int(self.request.get("input-dokoncano"))/100.0
+
+        task.put()
+        return self.redirect_to("seznam")
+
 app = webapp2.WSGIApplication([
     webapp2.Route("/", IndexHandler, name="index"),
     webapp2.Route("/dodaj", DodajTaskHandler),
-    webapp2.Route("/seznam", SeznamTaskovHandler),
+    webapp2.Route("/seznam", SeznamTaskovHandler, name="seznam"),
     webapp2.Route("/task/<task_id:\\d+>", PosamezenTaskHandler),
+    webapp2.Route("/task/<task_id:\\d+>/uredi", UrediTaskHandler),
 ], debug=True)

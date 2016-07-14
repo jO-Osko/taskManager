@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}
+    Dodaj
+{% endblock title %}
+{% block vsebina_strani %}
+    <div class="container">
+        <h1>Dodaj task</h1>
+        <form method="POST" action="/task/{{ task.key.id() }}/uredi">
+            <div class="form-group">
+                <label for="input-naslov">Naslov</label>
+                <input id="input-naslov" name="input-naslov" type="text" placeholder="Naslov" class="form-control" value="{{ task.naslov }}">
+            </div>
+            <div class="form-group">
+                <label for="input-besedilo">Besedilo</label>
+                <textarea id="input-besedilo" name="input-besedilo" placeholder="Besedilo" class="form-control">{{ task.besedilo }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="input-pomembnost">Pomembnost</label>
+                <select id="input-pomembnost" name="input-pomembnost" class="form-control">
+                    <option value="5">Zelo pomemben</option>
+                    <option value="4">Pomemben</option>
+                    <option value="3">Srednje</option>
+                    <option value="2">Manj pomemben</option>
+                    <option value="1">Nepomemben</option>
+                </select>
+            </div>
+            <div class="from-group">
+                <label for="input-dokoncano">Dokoncan (v %)</label>
+                <input id="input-dokoncano" type="number" min="0" max="100" step="1" class="form-control"
+                       value="{{ task.dokoncano*100 }}" name="input-dokoncano">
+            </div>
+            <button type="submit" class="btn btn-default">Uredi</button>
+        </form>
+    </div>
+{% endblock vsebina_strani %}
