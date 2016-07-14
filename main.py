@@ -73,7 +73,7 @@ class UrediTaskHandler(BaseHandler):
         task.naslov = self.request.get("input-naslov")
         task.besedilo = self.request.get("input-besedilo")
         task.pomembnost = int(self.request.get("input-pomembnost"))
-        task.dokoncano = int(self.request.get("input-dokoncano"))/100.0
+        task.dokoncano = int(self.request.get("input-dokoncano")) % 100
 
         task.put()
         return self.redirect_to("seznam")

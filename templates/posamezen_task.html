@@ -11,7 +11,12 @@
         <h3>Dodan</h3>
         <p>{{ task.dodan }}</p>
         <h3>Dokoncan</h3>
-        <p>{{ task.dokoncano*100 }}%</p>
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" aria-valuenow="{{ task.dokoncano }}"
+            aria-valuemin="0" aria-valuemax="100" style="width:{{ task.dokoncano }}%">
+            {{ task.dokoncano }}%
+          </div>
+        </div>
         <h3>Aktiven</h3>
         <p>{{ task.aktiven }}</p>
         <h3>Pomembnost</h3>

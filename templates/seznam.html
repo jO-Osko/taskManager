@@ -11,7 +11,14 @@
                 <div class="col-md-2">{{ sample_task.besedilo }}</div>
                 <div class="col-md-2">{{ sample_task.dodan }}</div>
                 <div class="col-md-2">{{ sample_task.pomembnost }}</div>
-                <div class="col-md-2">{{ sample_task.dokoncano*100 }}%</div>
+                <div class="col-md-2">
+                    <div class="progress">
+                      <div class="progress-bar" role="progressbar" aria-valuenow="{{ sample_task.dokoncano }}"
+                      aria-valuemin="0" aria-valuemax="100" style="width:{{ sample_task.dokoncano }}%">
+                        {{ sample_task.dokoncano }}%
+                      </div>
+                    </div>
+                </div>
             </div>
         {% endfor %}
     </div>
