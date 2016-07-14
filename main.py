@@ -54,8 +54,16 @@ class SeznamTaskovHandler(BaseHandler):
         return self.render_template("seznam.html", params=params)
 
 
+class PosamezenTaskHandler(BaseHandler):
+    def get(self, task_id):
+        task = Task.get_by_id(int(task_id))
+        params = {"task": task}
+        return self.render_template("posamezen_task.html", params=params)
+
+
 app = webapp2.WSGIApplication([
     webapp2.Route("/", IndexHandler, name="index"),
     webapp2.Route("/dodaj", DodajTaskHandler),
     webapp2.Route("/seznam", SeznamTaskovHandler),
+    webapp2.Route("/task/<task_id:\\d+>", PosamezenTaskHandler),
 ], debug=True)

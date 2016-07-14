@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}
+    Task - {{ task.key.id() }}
+{% endblock title %}
+{% block vsebina_strani %}
+    <div class="container">
+        <h1>Task</h1>
+        <h2>{{ task.naslov }}</h2>
+        <h3>Besedilo</h3>
+        <p>{{ task.besedilo }}</p>
+        <h3>Dodan</h3>
+        <p>{{ task.dodan }}</p>
+        <h3>Dokoncan</h3>
+        <p>{{ task.dokoncano*100 }}%</p>
+        <h3>Aktiven</h3>
+        <p>{{ task.aktiven }}</p>
+        <h3>Pomembnost</h3>
+        <p>{{ task.pomembnost }}</p>
+
+        <a href="/task/{{ task.key.id() }}/uredi" class="btn btn-primary btn-lg">Uredi</a>
+    </div>
+{% endblock vsebina_strani %}
