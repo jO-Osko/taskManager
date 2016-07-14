@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}
+    Seznam
+{% endblock title %}
+{% block vsebina_strani %}
+    <div class="container">
+        <h1>Taski</h1>
+        {% for sample_task in tasks %}
+            <div class="row">
+                <a href="/task/{{ sample_task.key.id() }}"><div class="col-md-2">{{ sample_task.naslov }}</div></a>
+                <div class="col-md-2">{{ sample_task.besedilo }}</div>
+                <div class="col-md-2">{{ sample_task.dodan }}</div>
+                <div class="col-md-2">{{ sample_task.pomembnost }}</div>
+                <div class="col-md-2">{{ sample_task.dokoncano*100 }}%</div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock vsebina_strani %}

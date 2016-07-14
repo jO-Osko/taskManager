@@ -34,7 +34,6 @@ class IndexHandler(BaseHandler):
 
 
 class DodajTaskHandler(BaseHandler):
-
     def get(self):
         return self.render_template("dodaj.html")
 
@@ -48,7 +47,15 @@ class DodajTaskHandler(BaseHandler):
         task.put()
         return self.redirect_to("index")
 
+
+class SeznamTaskovHandler(BaseHandler):
+    def get(self):
+        params = {"tasks": Task.query().fetch()}
+        return self.render_template("seznam.html", params=params)
+
+
 app = webapp2.WSGIApplication([
     webapp2.Route("/", IndexHandler, name="index"),
     webapp2.Route("/dodaj", DodajTaskHandler),
+    webapp2.Route("/seznam", SeznamTaskovHandler),
 ], debug=True)
