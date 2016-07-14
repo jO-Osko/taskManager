@@ -78,10 +78,23 @@ class UrediTaskHandler(BaseHandler):
         task.put()
         return self.redirect_to("seznam")
 
+
+class IzbrisiTaskHandler(BaseHandler):
+    def get(self, task_id):
+        task = Task.get_by_id(int(task_id))
+        params = {"task": task}
+        return self.render_template("izbrisi_task.html", params=params)
+
+    def post(self, task_id):
+        task = Task.get_by_id(int(task_id))
+        task.key.delete()
+        return self.redirect_to("seznam")
+
 app = webapp2.WSGIApplication([
     webapp2.Route("/", IndexHandler, name="index"),
     webapp2.Route("/dodaj", DodajTaskHandler),
     webapp2.Route("/seznam", SeznamTaskovHandler, name="seznam"),
     webapp2.Route("/task/<task_id:\\d+>", PosamezenTaskHandler),
     webapp2.Route("/task/<task_id:\\d+>/uredi", UrediTaskHandler),
+    webapp2.Route("/task/<task_id:\\d+>/izbrisi", IzbrisiTaskHandler),
 ], debug=True)

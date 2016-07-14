@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}
+    Izbris
+{% endblock title %}
+{% block vsebina_strani %}
+    <div class="container">
+        <h1>Ali res zelis izbrisati?</h1>
+        <form action="/task/{{ task.key.id() }}/izbrisi" method="POST">
+            <button type="submit" class="btn btn-danger btn-lg">Izbriši</button>
+        </form>
+    </div>
+{% endblock vsebina_strani %}
